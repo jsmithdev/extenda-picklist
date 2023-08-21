@@ -1,4 +1,4 @@
-# Dynamic Picklist
+# extenda-picklist
 
 An LWC dynamic picklist that:
 
