@@ -60,6 +60,8 @@ export default class ParentExample extends LightningElement {
 
 This way it's more effecient on projects that use multiple picklists by making that call only once
 
+> In the middle of merging extenda-picklist and dynamic picklist; for the moment use the [dynamic picklist](/force-app/main/default/lwc/dynamicPicklist/) for getting picklist options dynamically or [extenda-picklist](/force-app/main/default/lwc/extendaPicklist/) for using with other extenda elements
+
 ## Deploy
 
 ```bash
