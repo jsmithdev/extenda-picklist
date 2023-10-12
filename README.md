@@ -1,5 +1,7 @@
 # extenda-picklist
 
+> During the merge of extenda-picklist and dynamic picklist, use the [dynamic picklist](https://github.com/jsmithdev/dynamic-picklist) for getting picklist options dynamically or this commit for [extenda-picklist](https://github.com/jsmithdev/extenda-picklist/tree/1d80a408e83a79ff9c8a0c8a4a6f6afc6dd9285e) for using with other extenda elements
+
 An LWC dynamic picklist that:
 
 - Adds ability to set the options dynamically based on the object, field, and record type.
@@ -21,7 +23,7 @@ An LWC dynamic picklist that:
 ## Usage
 
 ```html
-<c-dynamic-picklist
+<c-extenda-picklist
     name="StageName"
     
     label="StageName"
@@ -32,7 +34,7 @@ An LWC dynamic picklist that:
     record-type-id={recordTypeId}
 
     onchange={handleChange}
-></c-dynamic-picklist>
+></c-extenda-picklist>
 ```
 
 See the [demo](/force-app/main/default/lwc/dynamicPicklistDemo/) for more details which works well in SFDX Local Development Server 👍

@@ -1,19 +1,49 @@
-import { LightningElement, api } from 'lwc'
-
+import { wire, api } from 'lwc'
+import ExtendaElement from 'c/extendaElement'
 import Blank from './blank.html';
 import Default from './extendaPicklist.html';
 import ReadOnly from './readOnly.html';
+import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import { setPicklistValues } from '../extendaPicklist/util';
 
-export default class ExtendaPicklist extends LightningElement {
+export default class ExtendaPicklist extends ExtendaElement {
 
-    @api label
-    @api placeholder
-    @api options = []
-    @api value
+	options = []
+    
     @api hide
     @api relatedTo
-    @api field
     @api readOnly = false;
+
+	@api name;
+	@api label;
+	@api value;
+	@api placeholder;
+	@api recordTypeId;
+	@api fieldApiName;
+	@api objectApiName;
+
+	@api 
+	get optionsOverride() {
+		return this.options || [];
+	}
+	set optionsOverride(value) {
+		if(!value || !value.length) return;
+		//this.options = setPicklistValues({ values: value.map(v => ({ value: v, label: v })) });;
+		this.options = value;
+	}
+
+	get fieldApi() {
+		if(this.optionsOverride.length) return;
+		return {
+			fieldApiName: this.fieldApiName,
+			objectApiName: this.objectApiName,
+		}
+	}
+
+	@wire(getPicklistValues, { recordTypeId: '$recordTypeId', fieldApiName: '$fieldApi' })
+    _setField({ data, error }) {
+		if(data) this.options = setPicklistValues(data);
+	}
 
 	render() {
 		if(this.hide){
@@ -44,11 +74,10 @@ export default class ExtendaPicklist extends LightningElement {
         const detail = {
             type: 'picklist-change',
             value,
-			field: this.field,
+			fieldApiName: this.fieldApiName,
+			objectApiName: this.objectApiName,
 			relatedTo: this.relatedTo,
         }
-
-        console.log('dispatching change', detail);
         
         this.dispatchEvent(new CustomEvent('change', {
             detail,
